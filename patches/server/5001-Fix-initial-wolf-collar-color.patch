@@ -1,0 +1,18 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Tue, 8 Apr 2025 11:08:16 -0600
+Subject: Fix initial wolf collar color
+
+diff --git a/src/main/java/net/minecraft/server/EntityWolf.java b/src/main/java/net/minecraft/server/EntityWolf.java
+index 469c87a17..dd187c4aa 100644
+--- a/src/main/java/net/minecraft/server/EntityWolf.java
++++ b/src/main/java/net/minecraft/server/EntityWolf.java
+@@ -89,7 +89,7 @@ public class EntityWolf extends EntityTameableAnimal {
+         super.h();
+         this.datawatcher.a(18, new Float(this.getHealth()));
+         this.datawatcher.a(19, new Byte((byte) 0));
+-        this.datawatcher.a(20, new Byte((byte) EnumColor.RED.getColorIndex()));
++        this.datawatcher.a(20, new Byte((byte) EnumColor.RED.getInvColorIndex())); // PandaSpigot - Fix initial wolf collar color
+     }
+ 
+     protected void a(BlockPosition blockposition, Block block) {
