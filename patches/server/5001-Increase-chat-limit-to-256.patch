@@ -1,0 +1,37 @@
+From 328e9cb05ec30eb5e06176876fd250faea9638d6 Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Sun, 7 Sep 2025 19:22:19 -0600
+Subject: [PATCH] Increase chat limit to 256
+
+---
+ src/main/java/net/minecraft/server/PacketPlayInChat.java | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/src/main/java/net/minecraft/server/PacketPlayInChat.java b/src/main/java/net/minecraft/server/PacketPlayInChat.java
+index 18358b432..322bccf30 100644
+--- a/src/main/java/net/minecraft/server/PacketPlayInChat.java
++++ b/src/main/java/net/minecraft/server/PacketPlayInChat.java
+@@ -9,15 +9,17 @@ public class PacketPlayInChat implements Packet<PacketListenerPlayIn> {
+     public PacketPlayInChat() {}
+ 
+     public PacketPlayInChat(String s) {
+-        if (s.length() > 100) {
+-            s = s.substring(0, 100);
++        // PandaSpigot start - Increase chat limit to 256
++        if (s.length() > 256) {
++            s = s.substring(0, 256);
++        // PandaSpigot end
+         }
+ 
+         this.a = s;
+     }
+ 
+     public void a(PacketDataSerializer packetdataserializer) throws IOException {
+-        this.a = packetdataserializer.c(100);
++        this.a = packetdataserializer.c(256); // PandaSpigot - Increase chat limit to 256
+     }
+ 
+     public void b(PacketDataSerializer packetdataserializer) throws IOException {
+-- 
+2.50.0.windows.1
+
