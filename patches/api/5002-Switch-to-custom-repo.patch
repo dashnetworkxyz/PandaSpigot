@@ -1,0 +1,65 @@
+From 26fcf0076a2e17417400be6209cd4931a00a2e2e Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Sun, 7 Sep 2025 20:26:53 -0600
+Subject: [PATCH] Switch to custom repo
+
+---
+ .../command/defaults/VersionCommand.java      | 35 +------------------
+ 1 file changed, 1 insertion(+), 34 deletions(-)
+
+diff --git a/src/main/java/org/bukkit/command/defaults/VersionCommand.java b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
+index 04195613..6766a099 100644
+--- a/src/main/java/org/bukkit/command/defaults/VersionCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
+@@ -193,12 +193,7 @@ public class VersionCommand extends BukkitCommand {
+         // PandaSpigot start
+         if (version.startsWith("git-PandaSpigot-")) {
+             String[] parts = version.substring("git-PandaSpigot-".length()).split("[-\\s]");
+-            int distance;
+-            try {
+-                distance = fetchDownloadApiDistance(Integer.parseInt(parts[0]));
+-            } catch (NumberFormatException e) {
+-                distance = fetchGitDistance("hpfxd/PandaSpigot", "master", parts[0]);
+-            }
++            int distance = fetchGitDistance("dashnetworkxyz/PandaSpigot", "custom", parts[0]); // PandaSpigot - Switch to custom repo
+ 
+             switch (distance) {
+                 case -1:
+@@ -277,34 +272,6 @@ public class VersionCommand extends BukkitCommand {
+     }
+ 
+     // PandaSpigot start
+-    private static int fetchDownloadApiDistance(int runNumber) {
+-        try {
+-            HttpURLConnection connection = (HttpURLConnection) new URL("https://downloads.hpfxd.com/v2/projects/pandaspigot/versions/1.8.8").openConnection();
+-            connection.setRequestProperty("Accept", "application/json");
+-            connection.setRequestProperty("User-Agent", "PandaSpigot/" + Bukkit.getVersion());
+-            connection.connect();
+-            if (connection.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND) return -2;
+-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charsets.UTF_8))) {
+-                JsonObject obj = new Gson().fromJson(reader, JsonObject.class);
+-                JsonArray arr = obj.getAsJsonArray("builds");
+-                int latest = StreamSupport.stream(arr.spliterator(), false)
+-                    .mapToInt(JsonElement::getAsInt)
+-                    .max()
+-                    .orElse(-1);
+-                if (latest < 0) {
+-                    return -1;
+-                } else {
+-                    return latest - runNumber;
+-                }
+-            } catch (JsonSyntaxException | NumberFormatException e) {
+-                e.printStackTrace();
+-                return -1;
+-            }
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-            return -1;
+-        }
+-    }
+     private static int fetchGitDistance(String repo, String branch, String hash) {
+         hash = hash.replace("\"", "");
+         try {
+-- 
+2.50.0.windows.1
+
