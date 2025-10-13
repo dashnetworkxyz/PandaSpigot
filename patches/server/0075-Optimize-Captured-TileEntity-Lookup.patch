@@ -10,7 +10,7 @@ Optimize to check if the captured list even has values in it, and also to
 just do a get call since the value can never be null.
 
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index b2c0fd70da33900b79d43724ad80979c2cafcbbc..6e954b00408425c1628a0d3c21e11ef3a7b01459 100644
+index f5c077c042662cbea57c048fbf017f830be18fd5..1ad3ba55a7789b2e921e86a09ff9264666963c41 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -2095,12 +2095,15 @@ public abstract class World implements IBlockAccess {

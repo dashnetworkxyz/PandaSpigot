@@ -5,10 +5,10 @@ Subject: [PATCH] Fix Timings
 
 
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index 47af49c25e1ce57a93aa4797f833ef8381fab523..99eb33eef6e11f76385afd536a921e5cffa21cb8 100644
+index f737670dd3d51de41d3a7ecf877239618b25b4cf..0e7cd99bc0b76f453ee64f64151bda16ec386946 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
-@@ -271,7 +271,9 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+@@ -270,7 +270,9 @@ public class WorldServer extends World implements IAsyncTaskHandler {
          this.methodProfiler.b();
          timings.doSounds.startTiming(); // Spigot
          this.ak();

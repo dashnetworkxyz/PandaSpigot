@@ -20,7 +20,7 @@ index 03fe76355813497a5db33ad185db0e4b40c6f85a..df28cca6175ff3ddf4992c44a0760ef1
          int j = blockposition.getX() & 15;
          int k = blockposition.getY();
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 589bf95c13e9c78c792498a7b73fd0480f4a503d..36524e82242dbe948b8a0dba1d538e48b5653a9b 100644
+index 42c077870727d1eb40bc9bf5e0a3ca580131331d..afae7447f602c9814ccb120168ddeeec29df3ac9 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -70,7 +70,7 @@ public abstract class World implements IBlockAccess {

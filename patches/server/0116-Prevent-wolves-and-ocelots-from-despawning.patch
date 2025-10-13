@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Mon, 13 Oct 2025 11:24:17 -0600
+Subject: [PATCH] Prevent wolves and ocelots from despawning
+
+
+diff --git a/src/main/java/net/minecraft/server/EntityOcelot.java b/src/main/java/net/minecraft/server/EntityOcelot.java
+index edcb30792a28abf638012df334a2db626b3c4733..f883c572346359e9c7c41d7e0a06c8e07c686d0c 100644
+--- a/src/main/java/net/minecraft/server/EntityOcelot.java
++++ b/src/main/java/net/minecraft/server/EntityOcelot.java
+@@ -52,7 +52,7 @@ public class EntityOcelot extends EntityTameableAnimal {
+     }
+ 
+     protected boolean isTypeNotPersistent() {
+-        return !this.isTamed() /*&& this.ticksLived > 2400*/; // CraftBukkit
++        return false; // PandaSpigot - Prevent wolves and ocelots from despawning
+     }
+ 
+     protected void initAttributes() {
+diff --git a/src/main/java/net/minecraft/server/EntityWolf.java b/src/main/java/net/minecraft/server/EntityWolf.java
+index dd187c4aa8ea8e8bdf698185f473fd463a5c2ab1..fb7fa9cabbac68a6faa0937eca5406b35b22f4bf 100644
+--- a/src/main/java/net/minecraft/server/EntityWolf.java
++++ b/src/main/java/net/minecraft/server/EntityWolf.java
+@@ -378,7 +378,7 @@ public class EntityWolf extends EntityTameableAnimal {
+     }
+ 
+     protected boolean isTypeNotPersistent() {
+-        return !this.isTamed() /*&& this.ticksLived > 2400*/; // CraftBukkit
++        return false; // PandaSpigot - Prevent wolves and ocelots from despawning
+     }
+ 
+     public boolean a(EntityLiving entityliving, EntityLiving entityliving1) {

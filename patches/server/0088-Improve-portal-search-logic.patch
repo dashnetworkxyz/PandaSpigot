@@ -34,10 +34,10 @@ index 72f3735b196cbd7d420c6338eb7aba01b40c7804..fa0ad789e58255d3faa01deb5bc15d51
              return false;
          }
 diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
-index d68deb81f9f7dfb82591d5876daaac9a3a258dc6..47af49c25e1ce57a93aa4797f833ef8381fab523 100644
+index 95fa99a0f6629622871934f526081bfe9b54a209..f737670dd3d51de41d3a7ecf877239618b25b4cf 100644
 --- a/src/main/java/net/minecraft/server/WorldServer.java
 +++ b/src/main/java/net/minecraft/server/WorldServer.java
-@@ -67,7 +67,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+@@ -66,7 +66,7 @@ public class WorldServer extends World implements IAsyncTaskHandler {
          this.manager = new PlayerChunkMap(this, spigotConfig.viewDistance); // Spigot
          this.worldProvider.a(this);
          this.chunkProvider = this.k();

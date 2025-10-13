@@ -83,7 +83,7 @@ index b7d410eeb974eee7b26dce8e3b02ff2051e74f93..6671d4920f4b808d61fd458ef3f26f21
          this.blocks.addAll(hashset);
          float f3 = this.size * 2.0F;
 diff --git a/src/main/java/net/minecraft/server/World.java b/src/main/java/net/minecraft/server/World.java
-index 593267d2cfa206f3ba5fb6df7910b4983be2a42f..b2c0fd70da33900b79d43724ad80979c2cafcbbc 100644
+index 2241f47af8bab16eba630dfb857eb738b324c362..f5c077c042662cbea57c048fbf017f830be18fd5 100644
 --- a/src/main/java/net/minecraft/server/World.java
 +++ b/src/main/java/net/minecraft/server/World.java
 @@ -1350,6 +1350,8 @@ public abstract class World implements IBlockAccess {

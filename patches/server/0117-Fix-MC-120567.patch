@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Mon, 13 Oct 2025 11:27:07 -0600
+Subject: [PATCH] Fix MC-120567
+
+
+diff --git a/src/main/java/net/minecraft/server/WorldServer.java b/src/main/java/net/minecraft/server/WorldServer.java
+index 0e7cd99bc0b76f453ee64f64151bda16ec386946..5039fd4c7e11703b2d0ee9012e9465137492e4e6 100644
+--- a/src/main/java/net/minecraft/server/WorldServer.java
++++ b/src/main/java/net/minecraft/server/WorldServer.java
+@@ -313,14 +313,12 @@ public class WorldServer extends World implements IAsyncTaskHandler {
+ 
+     protected void e() {
+         this.O = false;
+-        Iterator iterator = this.players.iterator();
++        Iterator iterator = this.players.stream().filter(EntityHuman::isSleeping).iterator(); // PandaSpigot - Fix MC-120567
+ 
+         while (iterator.hasNext()) {
+             EntityHuman entityhuman = (EntityHuman) iterator.next();
+ 
+-            if (entityhuman.isSleeping()) {
+-                entityhuman.a(false, false, true);
+-            }
++            entityhuman.a(false, false, true); // PandaSpigot - Fix MC-120567
+         }
+ 
+         this.ag();

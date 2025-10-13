@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Mon, 13 Oct 2025 11:29:56 -0600
+Subject: [PATCH] Switch to custom repo
+
+
+diff --git a/src/main/java/org/bukkit/command/defaults/VersionCommand.java b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
+index 04195613b2c230aa5e28fb2fabc2b3f2b32ec169..6c36e37b1510228d9572a68397a6697292e29705 100644
+--- a/src/main/java/org/bukkit/command/defaults/VersionCommand.java
++++ b/src/main/java/org/bukkit/command/defaults/VersionCommand.java
+@@ -193,12 +193,7 @@ public class VersionCommand extends BukkitCommand {
+         // PandaSpigot start
+         if (version.startsWith("git-PandaSpigot-")) {
+             String[] parts = version.substring("git-PandaSpigot-".length()).split("[-\\s]");
+-            int distance;
+-            try {
+-                distance = fetchDownloadApiDistance(Integer.parseInt(parts[0]));
+-            } catch (NumberFormatException e) {
+-                distance = fetchGitDistance("hpfxd/PandaSpigot", "master", parts[0]);
+-            }
++            int distance = fetchGitDistance("dashnetworkxyz/PandaSpigot", "custom", parts[0]); // PandaSpigot - Switch to custom repo
+ 
+             switch (distance) {
+                 case -1:
