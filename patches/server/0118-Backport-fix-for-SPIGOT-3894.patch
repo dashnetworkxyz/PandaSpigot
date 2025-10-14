@@ -1,0 +1,50 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Mon, 13 Oct 2025 23:53:16 -0600
+Subject: [PATCH] Backport fix for SPIGOT-3894
+
+
+diff --git a/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java b/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java
+index 360ed37b95fce68941c234615b465090b8ea7308..b27abafa6dec193f6010ae97916629d4a54e3a6d 100644
+--- a/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java
++++ b/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java
+@@ -35,6 +35,11 @@ public class PandaSpigotWorldConfig {
+             "\n" +
+             "This has the same effect as Spigot's \"nerf-spawner-mobs\" option, but applies to all entities.")
+     public boolean disableEntityAi = false;
++
++    // PandaSpigot start - Fix SPIGOT-3894
++    @Comment("When enabled, villagers will be ticked even when outside the entity activation range set in the spigot.yml")
++    public boolean tickInactiveVillagers = true;
++    // PandaSpigot end
+     
+     @Comment("This option controls whether or not to add a bit of randomness to an arrow's trajectory.\n" +
+             "By default, this is true (vanilla behaviour)")
+diff --git a/src/main/java/net/minecraft/server/EntityVillager.java b/src/main/java/net/minecraft/server/EntityVillager.java
+index f1c905aa0fb964bd728c63b851fa4800a77179ef..7b34fe4a6abaffba4b2c4523b610e46c8888899f 100644
+--- a/src/main/java/net/minecraft/server/EntityVillager.java
++++ b/src/main/java/net/minecraft/server/EntityVillager.java
+@@ -77,6 +77,23 @@ public class EntityVillager extends EntityAgeable implements IMerchant, NPC {
+         this.getAttributeInstance(GenericAttributes.MOVEMENT_SPEED).setValue(0.5D);
+     }
+ 
++    // PandaSpigot start - Fix SPIGOT-3894
++    @Override
++    public void inactiveTick() {
++        if (world.pandaSpigotConfig.tickInactiveVillagers) {
++            Chunk startingChunk = this.world.getChunkIfLoaded(MathHelper.floor(this.locX) >> 4, MathHelper.floor(this.locZ) >> 4);
++
++            if (!(startingChunk != null && startingChunk.areNeighborsLoaded(1))) {
++                return;
++            }
++
++            this.E();
++        }
++
++        super.inactiveTick();
++    }
++    // PandaSpigot end
++
+     protected void E() {
+         if (--this.profession <= 0) {
+             BlockPosition blockposition = new BlockPosition(this);
