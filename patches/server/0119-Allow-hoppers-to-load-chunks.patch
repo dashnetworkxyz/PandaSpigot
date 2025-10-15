@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: MasterDash5 <constant4337@molecularmail.com>
+Date: Wed, 15 Oct 2025 00:43:02 -0600
+Subject: [PATCH] Allow hoppers to load chunks
+
+
+diff --git a/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java b/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java
+index b27abafa6dec193f6010ae97916629d4a54e3a6d..c46317ecc590de894b9177540b356d4b6fd99df6 100644
+--- a/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java
++++ b/src/main/java/com/hpfxd/pandaspigot/config/PandaSpigotWorldConfig.java
+@@ -67,4 +67,9 @@ public class PandaSpigotWorldConfig {
+     @Comment("This option controls whether or not there is a chance for arrow crits to deal extra damage.\n" +
+             "By default, this is true (vanilla behaviour)")
+     public boolean randomArrowDamage = true;
++
++    // PandaSpigot start - Allow hoppers to load chunks
++    @Comment("When enabled, hoppers will load chunks when facing an unloaded chunk")
++    public boolean hoppersLoadChunks = true;
++    // PandaSpigot end
+ }
+diff --git a/src/main/java/net/minecraft/server/TileEntityHopper.java b/src/main/java/net/minecraft/server/TileEntityHopper.java
+index 760a0767eae7c148efd27c78a4a2f142507b75b7..4080e6155815592a21a2df777c90c1d84be5716a 100644
+--- a/src/main/java/net/minecraft/server/TileEntityHopper.java
++++ b/src/main/java/net/minecraft/server/TileEntityHopper.java
+@@ -554,7 +554,7 @@ public class TileEntityHopper extends TileEntityContainer implements IHopper, IU
+         int j = MathHelper.floor(d1);
+         int k = MathHelper.floor(d2);
+         BlockPosition blockposition = new BlockPosition(i, j, k);
+-        if ( !world.isLoaded( blockposition ) ) return null; // Spigot
++        if ( !world.isLoaded( blockposition ) && !world.pandaSpigotConfig.hoppersLoadChunks) return null; // Spigot // PandaSpigot - Allow hoppers to load chunks
+         Block block = world.getType(blockposition).getBlock();
+ 
+         if (block.isTileEntity()) {
